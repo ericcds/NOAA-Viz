@@ -4,7 +4,7 @@
   "height": 400,
   "padding": {"left":25, "right": 25, "top": 25, "bottom":25},
   "description": "Severe Weather Events (1996-2016)",
-  "data": {"url": "https://raw.githubusercontent.com/ericcds/SevereWeather/master/eventsummary_by_year.csv"},
+  "data": {"url": "data/eventsummary_by_year.csv"},
   "vconcat": [
     {
     	"width": 600,

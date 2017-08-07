@@ -36,7 +36,7 @@
   "data": [
     {
       "name": "events",
-      "url": "https://raw.githubusercontent.com/ericcds/SevereWeather/master/stormevent_stats_prefiltered.tsv",
+      "url": "data/stormevent_stats_prefiltered.tsv",
       "format": {"type": "tsv", "parse": "auto"},
       "transform": [
         {

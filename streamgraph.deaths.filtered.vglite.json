@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
   "width": 600, "height": 400,
   "data": {
-  	"url": "https://raw.githubusercontent.com/ericcds/SevereWeather/master/stormevent_stats_prefiltered_2005.tsv"
+  	"url": "data/stormevent_stats_prefiltered_2005.tsv"
   },
   "mark": "area",
   "encoding": {
