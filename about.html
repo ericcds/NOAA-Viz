@@ -1,11 +1,17 @@
 <html>
 	<head>
 		<body>
-			<h1>About the Data</h1>
 			<a href="index.html#banner">back</a>
+			<i><h2>Note to Readers</h2></i>
+			<p>In the final interactive chart, the datum being passed to the hover event for Year does not appear to be updating. This may be a <a href="https://github.com/vega/vega-tooltip/issues/120">bug</a> in the current Vega-3.0.0 beta release. I also used <a href="https://github.com/vega/vega-tooltip">vega-tooltip</a> to generate tooltip boxes for the Vega and Vega-Lite charts in the story. The hover and tooltip signals in Vega/Vega-Lite, whether coded as signals or generated through the vega-tooltip plugin, are great when they work, but they never worked consistently. When one worked, so did the other. YMMV. I apologize if they don't work for you, and can only suggest trying again with a different browser.</p>
+			
+			<p>Now. On with the show.</p>
+			<br>
+			<h1>About the Data</h1>
+			
 			<h2>Dataset</h2>
 			<p>
-			The dataset was downloaded from NOAA (the National Oceanic and Atmospheric Association), which compiles a database of severe weather events dating back to 1950. Data is limited for certain timeframes: the time period from 1950 - 1954 records only Tornado events, and the time period from 1955 - 1995 records only Tornado, Thunderstorm, and Hail events. The period from 1996 - present records all severe weather events as gathered and described in <a href="https://www.ncdc.noaa.gov/stormevents/pd01016005curr.pdf">NWS Directive 10-1605</a>. There are 48 different types in total.</p>
+			The dataset was downloaded from NOAA (the National Oceanic and Atmospheric Association), which compiles a database of severe weather events dating back to 1950. Data is limited for certain time frames: the time period from 1950 - 1954 records only Tornado events, and the time period from 1955 - 1995 records only Tornado, Thunderstorm, and Hail events. The period from 1996 - present records all severe weather events as gathered and described in <a href="https://www.ncdc.noaa.gov/stormevents/pd01016005curr.pdf">NWS Directive 10-1605</a>. There are 48 different types in total.</p>
 			<p>The complete dataset is available as a bulk data download from NOAA via FTP or HTTP at <a href="https://www.ncdc.noaa.gov/stormevents/ftp.jsp">NOAA via FTP or HTTP</a>. The data is contained in multiple GZip'd CSV files that are separated by year and content. Three types of files are available: Detail, Location, and Fatalities. For the purposes of this visualization we worked only with the data in the Detail files.</p>
 			<h2>Data Cleansing</h2>
 			<p>The files were downloaded and extracted to a local folder using R, then they were concatenated into a single dataframe. During examination of the data it became apparent that there were some numeric values that were represented as characters (e.g. 10M for 10,000,000 or 1.25K for 1,250). These were converted to numeric values and multiplied by the appropriate multiplier.</p>
