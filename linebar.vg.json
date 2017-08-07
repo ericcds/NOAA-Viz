@@ -1,0 +1,229 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v3.0.json",
+  "width": 600,
+  "height": 400,
+  "padding": {"left":50, "right": 50, "top": 25, "bottom":25},
+
+  "signals": [
+    {
+      "name": "dataval",
+      "value": "deaths",
+      "bind": {
+        "input": "select",
+        "options": [
+          "deaths",
+          "injuries",
+          "damage",
+          "count"
+        ]
+      }
+    },
+    {
+      "name": "tooltip",
+      "value": null,
+      "on": [
+        {"events": "line:mouseover", "update": "datum"},
+        {"events": "line:mouseout",  "update": "null"}
+      ]
+    },
+    {
+      "name": "title",
+      "value": "Severe Weather Events, 1996-2016",
+      "update": "tooltip ? tooltip.eventcat + ' (' + tooltip.year + ')' : 'Severe Weather Events, 1996-2016'"
+    }
+  ],
+
+  "data": [
+    {
+      "name": "events",
+      "url": "https://raw.githubusercontent.com/ericcds/SevereWeather/master/stormevent_stats_prefiltered.tsv",
+      "format": {"type": "tsv", "parse": "auto"},
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["year", "eventcat"],
+          "fields": ["totaldeaths", "totalinjuries", "totaldamage", "eventid"],
+          "ops": ["sum", "sum", "sum", "count"],
+          "as": ["deaths", "injuries", "damage", "count"]
+        }
+      ]
+    },
+    {
+    	"name": "trends",
+    	"source": "events",
+    	"transform": [
+    		{
+    			"type": "aggregate",
+    			"fields": ["deaths", "injuries", "damage", "count"],
+    			"ops": ["average", "average", "average", "average"],
+    			"as": ["avgdeaths", "avginjuries", "avgdamage", "avgcount"]
+    		}
+    	]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "point",
+      "range": "width",
+      "domain": {"data": "events", "field": "year"}
+    },
+    {
+      "name": "xband",
+      "type": "band",
+      "domain": {"data": "events", "field": "year"},
+      "range": "width",
+      "padding": 0.05,
+      "round": true
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "range": "height",
+      "domain": {"data": "events", "field": {"signal": "dataval"}}
+    },
+    {
+      "name": "deaths",
+      "type": "linear",
+      "range": "height",
+      "nice": true,
+      "zero": true,
+      "domain": {"data": "events", "field": "deaths"}
+    },
+    {
+      "name": "injuries",
+      "type": "linear",
+      "range": "height",
+      "nice": true,
+      "zero": true,
+      "domain": {"data": "events", "field": "injuries"}
+    },
+    {
+      "name": "damage",
+      "type": "linear",
+      "range": "height",
+      "nice": true,
+      "zero": true,
+      "domain": {"data": "events", "field": "damage"}
+    },
+    {
+      "name": "count",
+      "type": "linear",
+      "range": "height",
+      "nice": true,
+      "zero": true,
+      "domain": {"data": "events", "field": "count"}
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "range": {"scheme": "category20"},
+      "domain": {"data": "events", "field": "eventcat"}
+    }
+  ],
+
+  "axes": [
+    {
+    	"scale": "x",
+    	"grid": true,
+    	"domain": false,
+    	"orient": "bottom",
+    	"tickCount": 10,
+    	"title": "Year"
+    },
+    {
+    	"orient": "left",
+    	"scale": "y",
+    	"grid": true,
+    	"domain": false,
+    	"titlePadding": 5,
+    	"title": {"signal": "dataval"},
+    	"encode": {
+    		"labels": {
+    			"interactive": true,
+    			"update": {
+    				"text": {"signal": "format(datum.value, ',')"},
+    				"fill": {"value": "black"}
+    			},
+    			"hover": {
+    				"fill": {"value": "firebrick"}
+    			}
+    		}
+    	}		
+    }
+  ],
+  
+  "legends": [
+    {
+      "stroke": "color",
+      "title": "Event Category",
+			"padding": 4,
+			"encode": {
+				"symbols": {
+					"name": "legendSymbol",
+					"interactive": false,
+					"enter": {
+						"strokeWidth": {"value": 2},
+						"size": {"value": 50}
+					}
+				}
+			}
+		}
+	],
+
+  "marks": [
+    {
+    	
+      "type": "group",
+      "from": {
+        "facet": {
+          "name": "series",
+          "data": "events",
+          "groupby": "eventcat"
+        }
+      },
+      "marks": [
+        {
+          "type": "line",
+          "name": "eventcount",
+          "interactive": true,
+          "from": {"data": "series"},
+          "encode": {
+            "enter": {
+              "x": {"scale": "xband", "field": "year"},
+              "y": {"scale": {"signal": "dataval"}, "field": {"signal": "dataval"}},
+              "stroke": {"scale": "color", "field": "eventcat"},
+              "strokeWidth": {"value": 2}
+              
+            },
+            "update": {
+              "y": {"scale": {"signal": "dataval"}, "field": {"signal": "dataval"}},
+              "fillOpacity": {"value": 1}
+            },
+            "hover": {
+              "fillOpacity": {"value": 0.5},
+              "tooltip": {"signal": "tooltip.eventcat"}
+            }
+          }
+        },
+				{
+      		"type": "text",
+     			"interactive": false,
+      		"encode": {
+        		"enter": {
+        			"x": {"signal": "width", "offset": -5},
+ 		         	"y": {"value": 0},
+   		       	"fill": {"value": "black"},
+  		        "fontSize": {"value": 20},
+  		        "align": {"value": "right"}
+ 		     		},
+		      	"update": {
+		      		"text": {"signal": "title"}
+		      	}
+ 		   		}
+    		}
+      ]
+    }
+  ]
+}

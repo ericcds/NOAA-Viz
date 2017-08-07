@@ -1,0 +1,150 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "width": 600,
+  "height": 400,
+  "padding": {"left":25, "right": 25, "top": 25, "bottom":25},
+  "description": "Severe Weather Events (1996-2016)",
+  "data": {"url": "https://raw.githubusercontent.com/ericcds/SevereWeather/master/eventsummary_by_year.csv"},
+  "vconcat": [
+    {
+    	"width": 600,
+			"layer": [
+				{
+					"mark": "line",
+				
+					"encoding": {
+						"x": {
+							"timeUnit": "year", "field": "year", "type": "temporal",
+							"scale": {"nice": "year"},
+							"axis": {"format": "%Y", "title": "Year"}
+						},
+						"y": {
+							"aggregate": "mean",
+							"field": "totaldeaths",
+							"type": "quantitative",
+							"color": {"value": "steelblue"},
+							"axis": {"title": "Total Deaths"}
+						}
+					}
+				},   
+				{
+					"mark": "rule",
+					"encoding": {
+						"y": {
+							"aggregate": "mean",
+							"field": "totaldeaths",
+							"type": "quantitative"
+						},
+						"color": {"value": "darkred"},
+						"size": {"value": 3}
+					}
+				}
+			]
+		},
+		{
+			"width": 600,
+			"layer": [
+				{
+					"mark": "line",
+				
+					"encoding": {
+						"x": {
+							"timeUnit": "year", "field": "year", "type": "temporal",
+							"scale": {"nice": "year"},
+							"axis": {"format": "%Y", "title": "Year"}
+						},
+						"y": {
+							"aggregate": "mean",
+							"field": "totalinjuries",
+							"type": "quantitative",
+							"color": {"value": "steelblue"},
+							"axis": {"title": "Total Injuries"}
+						}
+					}
+				},   
+				{
+					"mark": "rule",
+					"encoding": {
+						"y": {
+							"aggregate": "mean",
+							"field": "totalinjuries",
+							"type": "quantitative"
+						},
+						"color": {"value": "darkred"},
+						"size": {"value": 3}
+					}
+				}
+			]
+		},
+		{
+			"width": 600,
+			"layer": [
+				{
+					"mark": "line",
+				
+					"encoding": {
+						"x": {
+							"timeUnit": "year", "field": "year", "type": "temporal",
+							"scale": {"nice": "year"},
+							"axis": {"format": "%Y", "title": "Year"}
+						},
+						"y": {
+							"aggregate": "mean",
+							"field": "totaldamage",
+							"type": "quantitative",
+							"color": {"value": "steelblue"},
+							"axis": {"title": "Total Damage"}
+						}
+					}
+				},   
+				{
+					"mark": "rule",
+					"encoding": {
+						"y": {
+							"aggregate": "mean",
+							"field": "totaldamage",
+							"type": "quantitative"
+						},
+						"color": {"value": "darkred"},
+						"size": {"value": 3}
+					}
+				}
+			]
+		},
+		{
+			"width": 600,
+			"layer": [
+				{
+					"mark": "line",
+				
+					"encoding": {
+						"x": {
+							"timeUnit": "year", "field": "year", "type": "temporal",
+							"scale": {"nice": "year"},
+							"axis": {"format": "%Y", "title": "Year"}
+						},
+						"y": {
+							"aggregate": "mean",
+							"field": "eventcount",
+							"type": "quantitative",
+							"color": {"value": "steelblue"},
+							"axis": {"title": "Event Count"}
+						}
+					}
+				},   
+				{
+					"mark": "rule",
+					"encoding": {
+						"y": {
+							"aggregate": "mean",
+							"field": "eventcount",
+							"type": "quantitative"
+						},
+						"color": {"value": "darkred"},
+						"size": {"value": 3}
+					}
+				}
+			]
+		}
+  ]
+}

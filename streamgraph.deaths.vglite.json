@@ -1,0 +1,19 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "width": 600, "height": 400,
+  "data": {"url": "https://raw.githubusercontent.com/ericcds/SevereWeather/master/stormevent_stats_prefiltered.tsv"},
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "timeUnit": "yearmonth", "field": "begindatetime", "type": "temporal",
+      "scale": {"nice": "yearmonth"},
+      "axis": {"domain": false, "format": "%b-%Y", "labelAngle": 0, "tickSize": 0, "title": "MM-YYYY"}
+    },
+    "y": {
+      "aggregate": "sum", "field": "totaldeaths","type": "quantitative",
+      "stack": "center",
+      "axis": {"title": "Total Deaths"}
+    },
+    "color": {"field":"eventcat", "type":"nominal", "scale":{"scheme": "category20b"}}
+  }
+}

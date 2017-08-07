@@ -1,0 +1,224 @@
+<!DOCTYPE HTML>
+<!--
+	Overflow by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head><title>Severe Weather Events (USA, 1996-2015)</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.0-rc6/vega.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.0-beta.11/vega-lite.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-embed/3.0.0-beta.20/vega-embed.min.js"></script>
+  	<!-- Vega Tooltip 
+		<script src="https://vega.github.io/vega-tooltip/vg-tooltip.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://vega.github.io/vega-tooltip/vg-tooltip.css">
+		-->
+  	<!-- Tooltip CDNS -->
+  	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.4.2/vega-tooltip.min.css"></link>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/vega-tooltip/0.4.2/vega-tooltip.min.js"></script>
+
+	</head>
+	<body>
+		<!-- Header -->
+			<section id="header">
+				<header>
+					<h1>Severe Weather</h1>
+					<p>(USA 1996-2015)</p>
+					<p>Built on Overflow by <a href="http://twitter.com/ajlkn">AJ</a> for <a href="http://html5up.net">HTML5 UP</a>.<br />
+					A free HTML5 template released under the <a href="http://html5up.net/license">Creative Commons license</a>.</p>
+				</header>
+				<footer>
+					<a href="#banner" class="button style2 scrolly-middle">Chase the Storm</a>
+				</footer>
+			</section>
+
+		<!-- Banner -->
+			<section id="banner">
+				<header>
+					<a href="about.html" class="button style2" target="_blank"><h2>About the Data</h2></a>
+				</header>
+				<p>Click to view the narrative essay in full, or</p>
+				<footer>
+					<a href="#chart1" class="button style2 scrolly">Keep Going</a>
+				</footer>
+			</section>
+
+		<!-- Chart 1 - Trellis of metrics over time -->
+			<article id="chart1" class="container box style1">
+				<!--
+					<a href="#" class="image fit"><img src="images/cyclone.jpg" alt="" /></a>
+				-->
+				<div class="inner">
+					<header>
+						<h2>Trends</h2>
+					</header>
+					<p>We're looking at the NOAA data for severe weather events from 1996-2016 in the USA.</p>
+					<p>To get a quick sense of the type of data available, here we see 4 charts showing the trend of:</p>
+					<ul><li>deaths</li>
+						<li>injuries</li>
+						<li>damage</li>
+						<li>number of events over time</li>
+					</ul>
+  				<div id="trellis"></div>
+  				<script>
+    				var vlSpec = 'intro.trellis.vglite.json';
+
+    				var opt = {
+      				mode: "vega-lite",
+      				actions: false
+    				};
+    				vega.embed("#trellis", vlSpec, opt, function (error, result) {
+      				var tooltipOption = {
+    						showAllFields: true
+  						};
+      				vegaTooltip.vegaLite(result.view, vlSpec, tooltipOption);
+    				});
+    			</script>
+				</div>
+				<p>Looks like total event count and damage are trending upward over time.</p>
+				<p>There are also a few noteworthy spikes in death count, at 1999, 2005, and 2011.</p>
+				<footer>
+					<a href="#chart2" class="button style1 scrolly-middle">That Sounds Serious!</a>
+				</footer>
+			</article>
+			
+			<!-- Chart 2 - Streamgraph with YearMonth resolution -->
+			<article id="chart2" class="container box style1">
+				<!--
+					<a href="#" class="image fit"><img src="images/cyclone.jpg" alt="" /></a>
+				-->
+				<div class="inner">
+					<header>
+						<h2>Total Deaths</h2>
+					</header>
+					<p>We'll take a closer look at the total deaths over time, breaking them down by storm category.</p>
+					<div id="streamgraph1">
+    			<script>
+    				var vlSpec = 'streamgraph.deaths.vglite.json';
+    			
+    				var opt = {
+      				mode: "vega-lite",
+      				actions: false
+    				};
+    				vega.embed("#streamgraph1", vlSpec, opt, function (error, result) {
+      				vegaTooltip.vegaLite(result.view, vlSpec);
+    				});
+					</script>
+				</div>
+				<p>Three years have notable spikes, and one year hugely stands out, but at Year/Month resolution it's hard to make sense of it.</p>
+				<footer>
+					<a href="#chart3" class="button style1 scrolly-middle">Ok, Zoom Out</a>
+				</footer>
+			</article>
+
+			<!-- Chart 3 - Streamgraph with Year resolution -->
+			<article id="chart3" class="container box style1">
+				<!--
+					<a href="#" class="image fit"><img src="images/cyclone.jpg" alt="" /></a>
+				-->
+				<div class="inner">
+					<header>
+						<h2>Total Deaths</h2>
+					</header>
+					<p>Zooming out gives us a better perspective. That big spike was a tropical vortex.</p>
+					<div id="streamgraph2">
+    			<script>
+    				var vlSpec = 'streamgraph.deaths.zoomout.vglite.json';
+    			
+    				var opt = {
+      				mode: "vega-lite",
+      				actions: false
+    				};
+    				vega.embed("#streamgraph2", vlSpec, opt, function (error, result) {
+      				vegaTooltip.vegaLite(result.view, vlSpec);
+    				});
+					</script>
+				</div>
+				<p>Let's narrow it down. Was it one storm, or many that caused the uptick.</p>
+				<footer>
+					<a href="#chart4" class="button style1 scrolly">Into the Trenches</a>
+				</footer>
+			</article>
+			
+			<!-- Chart 4 - Streamgraph of 2005 with YearMonth resolution -->
+			<article id="chart4" class="container box style1">
+				<!--
+					<a href="#" class="image fit"><img src="images/cyclone.jpg" alt="" /></a>
+				-->
+				<div class="inner">
+					<header>
+						<h2>The Big One</h2>
+					</header>
+					<p>We'll take a look at just one year to see where the uptick really sits.</p>
+					<div id="streamgraph3">
+    			<script>
+    				var vlSpec = 'streamgraph.deaths.filtered.vglite.json';
+    			
+    				var opt = {
+      				mode: "vega-lite",
+      				actions: false
+    				};
+    				vega.embed("#streamgraph3", vlSpec, opt, function (error, result) {
+      				vegaTooltip.vegaLite(result.view, vlSpec);
+    				});
+					</script>
+				</div>
+				<p>There she is.</p>
+				<p>Say hello to <a href="https://en.wikipedia.org/wiki/Hurricane_Katrina">Hurricane Katrina</a>.</p>
+				<footer>
+					<a href="#chart5" class="button style1 scrolly-left">Go Ahead & Explore On Your Own</a>
+				</footer>
+			</article>
+			
+			<!-- Chart 5 - Vega Interactive Line Graph -->
+			<article id="chart5" class="container box style1">
+				<!--
+					<a href="#" class="image fit"><img src="images/cyclone.jpg" alt="" /></a>
+				-->
+				<div class="inner">
+					<header>
+						<h2>Freeform Exploration</h2>
+					</header>
+					<p>This chart gives you the ability to look at various other facets of the severe weather dataset.</p>
+					<p>You can explore the other metrics over different timeframes or as a whole.
+					<div id="interactive">
+						<script>
+								var vgSpec = 'linebar.vg.json';
+					
+								var opt = {
+									mode: "vega"
+								};
+								vega.embed("#interactive", vgSpec, opt, function (error, result) {
+									vegaTooltip.vega(result.view);
+								});
+						</script>
+				</div>
+				<footer>
+				</footer>
+			</article>
+
+
+		<section id="footer">
+			<div class="copyright">
+				<ul class="menu">
+					<li>Released under Creative Commons License (CC-BY-SA)/li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
