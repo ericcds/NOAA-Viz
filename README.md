@@ -1,7 +1,7 @@
 # NOAA-Viz
 Narrative Visualization using NOAA Severe Weather Data
 
-#About the Data<
+#About the Data
 
 ##Dataset
 

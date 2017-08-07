@@ -36,7 +36,7 @@
   "data": [
     {
       "name": "events",
-      "url": "data/stormevent_stats_prefiltered.tsv",
+      "url": "https://media.githubusercontent.com/media/ericcds/NOAA-Viz/master/data/stormevent_stats_prefiltered.tsv",
       "format": {"type": "tsv", "parse": "auto"},
       "transform": [
         {

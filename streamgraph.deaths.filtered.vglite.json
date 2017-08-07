@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
   "width": 600, "height": 400,
   "data": {
-  	"url": "data/stormevent_stats_prefiltered_2005.tsv"
+  	"url": "https://media.githubusercontent.com/media/ericcds/NOAA-Viz/master/data/stormevent_stats_prefiltered_2005.tsv"
   },
   "mark": "area",
   "encoding": {
